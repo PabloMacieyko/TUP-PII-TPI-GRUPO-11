@@ -1,9 +1,7 @@
 # Trabajo Práctico I - Programación II
 
-
 import os
 import biblioteca
-
 
 print("Bienvenido a la biblioteca Jose Manuel Estrada!")
 respuesta = ''
