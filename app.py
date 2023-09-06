@@ -28,6 +28,28 @@ def nuevo_libro():
     libro["titulo"]=input("ingrese el titulo:\n")
     libro["autor"]=input("ingrese el autor:\n")
     libros.append(libro)
+    print(libro)
+    return None
+
+def ejemplares_prestados():
+    print("Lista de unidades pretadas:\n")
+    for libro in libros:
+        if libro["cant_ej_pr"]>0:
+            print(f"Titulo:{libro['titulo']},Autor:{libro['autor']},Cantidad prestada:{libro['cant_ej_pr']}")
+        else:
+            print(f"Titulo:{libro['titulo']},Autor:{libro['autor']}, Ninguna unidad prestada")
+    return None
+
+def eliminar_ejemplar_libro():
+    codigo=input("ingrese el codigo del libro que desea sacar\n")
+    encontrado=0
+    for codig in libros:
+        if(codigo==codig["cod"]):
+            codig["cant_ej_ad"]==0
+            print("eliminado con exito")
+            encontrado=1
+    if(encontrado==0):
+        print("Error, codigo incorrecto")
     return None
 
 libro1 = {'cod': 'CRBJsAkS', 'cant_ej_ad': 3, 'cant_ej_pr': 1, "titulo": "Cien años de soledad", "autor": "Gabriel García Márquez"}
@@ -51,15 +73,10 @@ while respuesta != "salir":
             nuevo_libro()
             print()
         elif int(opt) == 4:
-            #completar
-            print()
+            eliminar_ejemplar_libro()
+            
         elif int(opt) == 5:
-            print("Lista de unidades pretadas:\n")
-            for libro in libros:
-                if libro["cant_ej_pr"]>0:
-                    print(f"Titulo:{libro['titulo']},Autor:{libro['autor']},Cantidad prestada:{libro['cant_ej_pr']}")
-                else:
-                    print(f"Titulo:{libro['titulo']},Autor:{libro['autor']}, Ninguna unidad prestada")
+            ejemplares_prestados()
 
         elif int(opt) == 6:
             respuesta = "salir"
