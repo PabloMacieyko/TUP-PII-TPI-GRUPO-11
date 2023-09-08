@@ -9,16 +9,12 @@ libros.append(libro.libro2)
 libros.append(libro.libro3)
 
 def mostrar_ejemplares_prestados():
-    prestados = []
+    print("Lista de unidades prestadas:\n")
     for libro in libros:
-        if libro['cant_ej_pr'] > 0:
-            prestados.append(libro['titulo'])
-    if prestados:
-        print("Ejemplares prestados:")
-        for libro in prestados:
-            print(libro)
-    else:
-        print("No hay ejemplares prestados en este momento.")
+        if libro["cant_ej_pr"]>0:
+            print(f"Titulo:{libro['titulo']},Cantidad prestada:{libro['cant_ej_pr']}")
+        else:
+            print(f"Titulo:{libro['titulo']}, Ninguna unidad prestada")
     return None
 
 def registrar_nuevo_libro():
@@ -40,7 +36,7 @@ def eliminar_ejemplar_libro():
 
 def gestionar_prestamo():
     libros_disponibles()
-    codigo_libro = input("Ingrese el código del libro que dease prestar: ")
+    codigo_libro = input("Ingrese el código del libro que desea prestar: ")
 
     libro_encontrado = None
     for libro in libros:
@@ -50,9 +46,9 @@ def gestionar_prestamo():
 
     if libro_encontrado:
         print(f"Título del libro encontrado: {libro_encontrado['titulo']} - Autor: {libro_encontrado['autor']}")
-        confirmar_prestamo = input("¿Desea confirmar el préstamo? (Presione 'S' para confirmar): ").lower()
+        confirmar_prestamo = input("¿Desea confirmar el préstamo? (Presione 's' para confirmar): ").lower()
         if confirmar_prestamo == 's':
-            libro_encontrado['cant_ej_pr'] -= 1
+            libro_encontrado['cant_ej_pr'] += 1
             print("¡Préstamo confirmado!")
         else:
             print("Préstamo cancelado.")
@@ -71,9 +67,9 @@ def gestionar_devolucion():
        
     if libro_encontrado:
        print(f"Título del libro encontrado: {libro_encontrado['titulo']} - Autor: {libro_encontrado['autor']}")
-       confirmar_devolucion = input("¿Desea confirmar la devolución? (Presione 'S' para confirmar): ").lower()
+       confirmar_devolucion = input("¿Desea confirmar la devolución? (Presione 's' para confirmar): ").lower()
        if confirmar_devolucion == 's':
-           libro_encontrado['cant_ej_pr'] += 1
+           libro_encontrado['cant_ej_pr'] -= 1
            print("Devolución confirmada. ¡Gracias por devolver el libro!")
        else:
             print("Devolución cancelada.")
@@ -84,7 +80,7 @@ def gestionar_devolucion():
 def libros_disponibles():
     disponibles = []
     for libro in libros:
-        if libro['cant_ej_pr'] > 0:
+        if libro['cant_ej_ad'] > 0:
             disponibles.append(libro)
     if disponibles:
         print("Libros disponibles: ")
@@ -92,6 +88,6 @@ def libros_disponibles():
             print(f"Código: {libro['cod']}")
             print(f"Título: {libro['titulo']}")
             print(f"Autor: {libro['autor']}")
-            print(f"Ejemplares disponibles: {libro['cant_ej_pr']}")
+            print(f"Ejemplares disponibles: {libro['cant_ej_ad']-libro['cant_ej_pr']}")
     else:
         print("No hay libros disponibles en este momento.")
